@@ -1,4 +1,36 @@
 <?php
+session_start();
+
+// Jika belum login, arahkan kembali ke login
+if (!isset($_SESSION['username'])) {
+    header("Location: index.php");
+    exit();
+}
+
+// Data produk
+$kode_barang  = ["B01", "B02", "B03", "B04", "B05"];
+$nama_barang  = ["Susu", "Snack", "Roti", "Sabun", "Teh"];
+$harga_barang = [15000, 10000, 12000, 8000, 6000];
+
+// Data belanja acak
+$beli = [];
+$grandtotal = 0;
+
+for ($i = 0; $i < 5; $i++) {
+    $index = rand(0, count($kode_barang) - 1);
+    $jumlah = rand(1, 5);
+    $total = $harga_barang[$index] * $jumlah;
+    $grandtotal += $total;
+
+    $beli[] = [
+        "kode" => $kode_barang[$index],
+        "nama" => $nama_barang[$index],
+        "harga" => $harga_barang[$index],
+        "jumlah" => $jumlah,
+        "total" => $total
+    ];
+}
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -110,7 +142,8 @@
             background-color: #f1f2f6;
         }
 
-        
+
+
     </style>
 </head>
 
@@ -123,7 +156,7 @@
         </div>
 
         <div class="user-info">
-            <p>Selamat Datang, <b></b></p>
+            <p>Selamat Datang, <b><?= htmlspecialchars($_SESSION['username']) ?></b></p>
             <a class="logout-btn" href="logout.php">Logout</a>
         </div>
     </header>
@@ -136,9 +169,26 @@
                 <th>Kode Barang</th>
                 <th>Nama Barang</th>
                 <th>Harga</th>
-
+                <th>Jumlah</th>
+                <th>Total</th>
             </tr>
 
+            <?php foreach ($beli as $item): ?>
+                <tr>
+                    <td><?= htmlspecialchars($item["kode"]) ?></td>
+                    <td><?= htmlspecialchars($item["nama"]) ?></td>
+                    <td>Rp <?= number_format($item["harga"], 0, ',', '.') ?></td>
+                    <td><?= $item["jumlah"] ?></td>
+                    <td>Rp <?= number_format($item["total"], 0, ',', '.') ?></td>
+                </tr>
+            <?php endforeach; ?>
+        </table>
+
+        
+
+
+
+    </div>
 
 </body>
 
