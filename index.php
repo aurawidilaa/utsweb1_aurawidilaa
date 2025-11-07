@@ -1,5 +1,32 @@
 <?php
 
+
+// Jika sudah login, langsung ke dashboard
+if (isset($_SESSION['username'])) {
+    header("Location: dashboard.php");
+    exit();
+}
+
+// ✅ Proses Login (diletakkan sebelum HTML)
+if (isset($_POST['login'])) {
+    $user = "admin";
+    $pass = "1234";
+
+    $input_user = $_POST['username'];
+    $input_pass = $_POST['password'];
+
+    if ($input_user == $user && $input_pass == $pass) {
+        $_SESSION['username'] = $input_user;
+        header("Location: dashboard.php");
+        exit();
+    } else {
+        header("Location: index.php?error=Username atau Password salah");
+        exit();
+    }
+}
+
+// Cek jika ada pesan error
+$error = isset($_GET['error']) ? $_GET['error'] : "";
 ?>
 <!DOCTYPE html>
 <html lang="id">
@@ -106,7 +133,9 @@
     <div class="login-box">
         <h2>POLGAN MART</h2>
 
-        
+        <?php if ($error): ?>
+            <p class="error"><?= htmlspecialchars($error) ?></p>
+        <?php endif; ?>
 
         <form action="" method="POST">
             <input type="text" name="username" placeholder="Username" required>
