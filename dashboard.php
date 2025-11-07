@@ -31,10 +31,10 @@ for ($i = 0; $i < 5; $i++) {
     ];
 }
 
+
 ?>
 <!DOCTYPE html>
 <html>
-
 <head>
     <title>Dashboard - POLGAN MART</title>
     <style>
@@ -72,7 +72,7 @@ for ($i = 0; $i < 5; $i++) {
             align-items: center;
             justify-content: center;
             border-radius: 6px;
-            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 3px 6px rgba(0,0,0,0.3);
             border: 2px solid #0056b3;
             font-family: 'Arial Black', sans-serif;
         }
@@ -112,11 +112,10 @@ for ($i = 0; $i < 5; $i++) {
             background-color: white;
             padding: 25px;
             border-radius: 8px;
-            box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 0 8px rgba(0,0,0,0.1);
         }
 
-        h2,
-        h3 {
+        h2, h3 {
             text-align: center;
         }
 
@@ -142,54 +141,58 @@ for ($i = 0; $i < 5; $i++) {
             background-color: #f1f2f6;
         }
 
+        .total {
+            text-align: right;
+            font-weight: bold;
+            font-size: 18px;
+            margin-top: 15px;
+        }
+
+
 
 
     </style>
 </head>
-
 <body>
 
-    <header>
-        <div class="logo-container">
-            <div class="logo">PM</div>
-            <div class="logo-text">--POLGAN MART--</div>
-        </div>
-
-        <div class="user-info">
-            <p>Selamat Datang, <b><?= htmlspecialchars($_SESSION['username']) ?></b></p>
-            <a class="logout-btn" href="logout.php">Logout</a>
-        </div>
-    </header>
-
-    <div class="container">
-        <h3>Daftar Pembelian</h3>
-
-        <table>
-            <tr>
-                <th>Kode Barang</th>
-                <th>Nama Barang</th>
-                <th>Harga</th>
-                <th>Jumlah</th>
-                <th>Total</th>
-            </tr>
-
-            <?php foreach ($beli as $item): ?>
-                <tr>
-                    <td><?= htmlspecialchars($item["kode"]) ?></td>
-                    <td><?= htmlspecialchars($item["nama"]) ?></td>
-                    <td>Rp <?= number_format($item["harga"], 0, ',', '.') ?></td>
-                    <td><?= $item["jumlah"] ?></td>
-                    <td>Rp <?= number_format($item["total"], 0, ',', '.') ?></td>
-                </tr>
-            <?php endforeach; ?>
-        </table>
-
-        
-
-
-
+<header>
+    <div class="logo-container">
+        <div class="logo">PM</div>
+        <div class="logo-text">--POLGAN MART--</div>
     </div>
 
-</body>
+    <div class="user-info">
+        <p>Selamat Datang, <b><?= htmlspecialchars($_SESSION['username']) ?></b></p>
+        <a class="logout-btn" href="logout.php">Logout</a>
+    </div>
+</header>
 
+<div class="container">
+    <h3>Daftar Pembelian</h3>
+
+    <table>
+        <tr>
+            <th>Kode Barang</th>
+            <th>Nama Barang</th>
+            <th>Harga</th>
+            <th>Jumlah</th>
+               </tr>
+
+        <?php foreach ($beli as $item): ?>
+        <tr>
+            <td><?= htmlspecialchars($item["kode"]) ?></td>
+            <td><?= htmlspecialchars($item["nama"]) ?></td>
+            <td>Rp <?= number_format($item["harga"], 0, ',', '.') ?></td>
+            <td><?= $item["jumlah"] ?></td>
+        </tr>
+        <?php endforeach; ?>
+    </table>
+
+
+
+
+
+</div>
+
+</body>
 </html>
